@@ -1,0 +1,18 @@
+name: ClaimGuard
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  self-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install cryptography
+      - run: python claimguard.py --self-test
+      - run: python -m pytest -q
+      - name: Live board must attest (non-blocking if network blocked)
+        continue-on-error: true
+        run: python claimguard.py check --live --claim "14 quotable axes"
