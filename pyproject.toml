@@ -1,0 +1,15 @@
+[project]
+name = "claimguard"
+version = "0.1.0"
+description = "Claim-vs-signed-artifact integrity checker for GSPC boards"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "CSOAI Ltd", email = "nicholas@csoai.org" }]
+dependencies = ["cryptography>=42"]
+
+[project.scripts]
+claimguard = "claimguard:main"
+
+[tool.setuptools]
+py-modules = ["claimguard", "canonical"]
