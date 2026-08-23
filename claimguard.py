@@ -28,6 +28,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
     Ed25519PrivateKey,
     Ed25519PublicKey,
 )
+from cryptography.hazmat.primitives import serialization
 
 from canonical import canonicalize
 
@@ -293,7 +294,7 @@ def audit(
 def _self_test() -> int:
     """Prove mutation breaks the signature — the product demo."""
     key = Ed25519PrivateKey.generate()
-    pub = key.public_key().public_bytes_raw()
+    pub = key.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
     board = {
         "schema": "csoai.gspc-axes/0.5",
         "totals": {
